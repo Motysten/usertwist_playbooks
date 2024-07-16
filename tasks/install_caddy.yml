@@ -24,11 +24,17 @@
 
   - name: Creating webserver root folder
     ansible.builtin.file:
-      path: /var/www/html/index.html
+      path: /var/www/html/
       state: directory
       group: caddy
       owner: caddy
-    ignore_errors: yes
+
+  - name: Creating webserver root folder
+    ansible.builtin.file:
+      path: /var/www/html/index.html
+      state: present
+      group: caddy
+      owner: caddy
 
   - name: Editing Caddyfile
     ansible.builtin.template:
