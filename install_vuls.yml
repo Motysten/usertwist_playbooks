@@ -1,0 +1,17 @@
+- name: Install & Setup Vuls
+  hosts: athelas
+  become: true
+  tasks:
+
+  - name: Pull docker images
+    community.docker.docker_image_pull:
+      name: "{{ item }}"
+    with_items:
+      - vuls/go-cve-dictionary
+      - vuls/goval-dictionary
+      - vuls/gost
+      - vuls/go-exploitdb
+      - vuls/go-msfdb
+      - vuls/go-kev
+      - vuls/go-cti
+      - vuls/vuls
