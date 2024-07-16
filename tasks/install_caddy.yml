@@ -29,7 +29,7 @@
       group: caddy
       owner: caddy
 
-  - name: Creating webserver root folder
+  - name: Creating webserver index.html
     ansible.builtin.file:
       path: /var/www/html/index.html
       state: present
