@@ -7,34 +7,55 @@
       path: "~/ssh_key"
       size: 4096
 
-  - name: Get SSH Key
+  - name: Get SSH Private Key
     ansible.builtin.fetch:
-      dest: "~/ansible/keys"
+      dest: "~/ansible/keys/"
       src: "~/ssh_key"
+      flat: true
+
+  - name: Get SSH Public Key
+    ansible.builtin.fetch:
+      dest: "~/ansible/keys/"
+      src: "~/ssh_key.pub"
+      flat: true
 
   - name: Copy new SSH configuration
     ansible.builtin.template:
       src: "templates/sshd_config.j2"
       dest: "/etc/ssh/sshd_config"
 
-  - name: Generate password
-    ansible.builtin.command: openssl rand -base64 12
-    register: rand
-
   - name: Create new user
     ansible.builtin.user:
       name: "test"
       groups: "sudo"
       append: true
-      password: "{{ rand.stdout | password_hash('sha512') }}"
+      password: "{{ lookup('password', '/tmp/userpass length=12 encrypt=sha512_crypt') }}"
     become: true
 
-  - name: Display new user's password
+  - name: Display password
     ansible.builtin.debug:
-      msg: "New password is {{ rand.stdout }}"
+      msg: "Password : {{ lookup('file', '/tmp/userpass') }}"
 
   - name: Add SSH public key to remote host
     ansible.builtin.authorized_key:
       user: "test"
-      key: "{{ lookup('file', '~/ssh_key') }}"
+      key: "{{ lookup('file', '~/ansible/keys/ssh_key.pub') }}"
     become: true
+
+  - name: Restart SSH Services
+    ansible.builtin.service:
+      name: "{{ item }}"
+      state: restarted
+    become: true
+    with_items:
+      - ssh
+      - sshd
+
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+
+  - name: Delete pass file
+    ansible.builtin.file:
+      path: /tmp/userpass
+      state: absent
