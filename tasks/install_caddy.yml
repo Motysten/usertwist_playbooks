@@ -28,6 +28,7 @@
       state: directory
       group: caddy
       owner: caddy
+    ignore_errors: yes
 
   - name: Editing Caddyfile
     ansible.builtin.template:

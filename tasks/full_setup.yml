@@ -1,0 +1,4 @@
+- import_playbook: setup_ssh.yml
+- import_playbook: install_docker.yml
+- import_playbook: install_vuls.yml
+- import_playbook: install_caddy.yml
