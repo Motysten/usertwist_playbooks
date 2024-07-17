@@ -26,7 +26,7 @@
 
   - name: Create new user
     ansible.builtin.user:
-      name: "test"
+      name: "motysten"
       groups: "sudo"
       append: true
       password: "{{ lookup('password', '/tmp/userpass length=12 encrypt=sha512_crypt') }}"
@@ -38,7 +38,7 @@
 
   - name: Add SSH public key to remote host
     ansible.builtin.authorized_key:
-      user: "test"
+      user: "motysten"
       key: "{{ lookup('file', '~/ansible/keys/ssh_key.pub') }}"
     become: true
 
