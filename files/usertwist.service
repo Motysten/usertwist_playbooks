@@ -1,0 +1,10 @@
+[Unit]
+Description=Simple Web Service
+
+[Service]
+User=caddy
+Group=caddy
+ExecStart=/usr/local/bin/usertwist
+
+[Install]
+WantedBy=multi-user.target

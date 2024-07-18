@@ -8,18 +8,16 @@
 # this machine's public IP, then replace ":80" below with your
 # domain name.
 
-poc.athelas.fr {
-	# Set this path to your site's directory.
-	root * /var/www/html
-
-	# Enable the static file server.
-	file_server
+poc.athelas.fr:8081 {
 
 	# Another common task is to set up a reverse proxy:
-	# reverse_proxy localhost:8080
+	reverse_proxy localhost:8080
 
-	# Or serve a PHP site through php-fpm:
-	# php_fastcgi localhost:9000
+	# Also edit ACME server
+	tls {
+		ca https://acme-staging-v02.api.letsencrypt.org/directory
+	}
+
 }
 
 # Refer to the Caddy docs for more information:

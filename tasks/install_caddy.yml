@@ -24,24 +24,33 @@
     ansible.builtin.package:
       name: caddy
 
-  - name: Creating webserver root folder
-    ansible.builtin.file:
-      path: /var/www/html/
-      state: directory
-      group: caddy
-      owner: caddy
-
-  - name: Creating webserver index.html
-    ansible.builtin.file:
-      path: /var/www/html/index.html
-      state: touch
-      group: caddy
-      owner: caddy
-
-  - name: Editing Caddyfile
+  - name: Editing Caddyfile to setup the reverse_proxy
     ansible.builtin.template:
       src: ~/ansible/templates/Caddyfile.j2
       dest: /etc/caddy/Caddyfile
 
-  - name: Reboot
-    ansible.builtin.reboot:
+  - name: Put the service binary on the remote server
+    ansible.builtin.copy:
+      src: ~/ansible/files/usertwist
+      dest: /usr/local/bin
+      owner: root
+      group: root
+      mode: '0755'
+
+  - name: Put the service systemd file on the remote server
+    ansible.builtin.copy:
+      src: ~/ansible/files/usertwist.service
+      dest: /etc/systemd/system
+      owner: root
+      group: root
+
+  - name: Enable the service systemd unit
+    ansible.builtin.systemd_service:
+      name: usertwist
+      enabled: true
+      state: started
+
+  - name: Restart Caddy service
+    ansible.builtin.service:
+      name: caddy
+      state: restarted

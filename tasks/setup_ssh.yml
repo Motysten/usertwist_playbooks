@@ -28,6 +28,7 @@
     ansible.builtin.user:
       name: "motysten"
       groups: "sudo"
+      shell: /bin/bash
       append: true
       password: "{{ lookup('password', '/tmp/userpass length=12 encrypt=sha512_crypt') }}"
     become: true

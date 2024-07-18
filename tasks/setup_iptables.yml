@@ -11,8 +11,8 @@
       jump: ACCEPT
       destination_ports:
         - "22"
+        - "8081"
         - "80"
-        - "443"
 
   - name: Set INPUT policy to DROP
     ansible.builtin.iptables:
