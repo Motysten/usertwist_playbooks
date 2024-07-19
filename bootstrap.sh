@@ -25,4 +25,4 @@ sudo apt install git
 # Clone ansible_playbooks repo
 git clone https://git.athelas-conseils.fr/Stage/ansible_playbooks.git
 
-ansible-playbook ansible-playbook ansible_playbooks/tasks/full_setup.yml -i ansible_playbooks/inventory.ini
+ansible-playbook ansible_playbooks/tasks/full_setup.yml -i ansible_playbooks/inventory.ini --extra-vars "ansible_ssh_pass=$password"
