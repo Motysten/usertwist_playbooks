@@ -11,7 +11,7 @@
       jump: ACCEPT
       destination_ports:
         - "22"
-        - "8081"
+        - "443"
         - "80"
 
   - name: Set INPUT policy to DROP

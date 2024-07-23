@@ -20,7 +20,7 @@ sudo apt install python3-passlib sshpass
 pipx inject ansible passlib
 
 # Make sure git & git-lfs are installed and configured
-sudo apt install git git-lfs
+sudo apt install git git-lfs -y
 git lfs install
 
 # Clone ansible_playbooks repo
