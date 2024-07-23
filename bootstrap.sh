@@ -6,22 +6,25 @@ read -p "Enter root password : " password
 sudo apt update
 
 # Make sure python is installed
-sudo apt install python3 python3-pip
+sudo apt install python3 python3-pip -y
 
 # Install pipx
-sudo apt install pipx
+sudo apt install pipx -y
 pipx ensurepath
 
 # Install Ansible
 pipx install --include-deps ansible
 
-# Install passlib (for ssh password connection)
-sudo apt install sshpass
+# Install sshpass (for ssh password connection) & passlib (for password encryption)
+sudo apt install python3-passlib sshpass
+pipx inject ansible passlib
 
-# Make sure git is installed
-sudo apt install git
+# Make sure git & git-lfs are installed and configured
+sudo apt install git git-lfs
+git lfs install
 
 # Clone ansible_playbooks repo
 git clone https://git.athelas-conseils.fr/Stage/ansible_playbooks.git
+
 
 ~/.local/bin/ansible-playbook ansible_playbooks/tasks/full_setup.yml -i ansible_playbooks/inventory.ini --extra-vars "ansible_ssh_pass=$password ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
