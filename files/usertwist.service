@@ -2,8 +2,8 @@
 Description=Simple Web Service
 
 [Service]
-User=caddy
-Group=caddy
+User=usertwist
+Group=usertwist
 ExecStart=/usr/local/bin/usertwist
 
 [Install]
