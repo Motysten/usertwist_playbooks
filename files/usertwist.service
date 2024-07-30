@@ -5,6 +5,16 @@ Description=Simple Web Service
 User=usertwist
 Group=usertwist
 ExecStart=/usr/local/bin/usertwist
+PrivateTmp=yes
+NoNewPrivileges=true
+RestrictNamespaces=uts ipc pid user cgroup
+ProtectSystem=strict
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+PrivateDevices=yes
+RestrictSUIDSGID=true
 
 [Install]
 WantedBy=multi-user.target
