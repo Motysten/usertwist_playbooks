@@ -29,10 +29,6 @@
       src: ../templates/Caddyfile.j2
       dest: /etc/caddy/Caddyfile
 
-  - name: Create the usertwist group
-    ansible.builtin.group:
-      name: usertwist
-
   - name: Create the usertwist user
     ansible.builtin.user:
       name: usertwist
@@ -59,11 +55,6 @@
       name: usertwist
       enabled: true
       state: started
-
-  - name: Edit usertwist default port
-    ansible.builtin.lineinfile:
-      path: /etc/environment
-      line: "PORT={{ usertwist_port | default('8080')}}"
 
   - name: Restart Caddy service
     ansible.builtin.service:

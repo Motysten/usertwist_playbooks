@@ -1,5 +1,20 @@
 - name: Edit iptables settings
   hosts: athelas
   become: true
-  roles:
-    - setup_iptables
+  tasks:
+
+  - name: Open needed ports
+    ansible.builtin.iptables:
+      chain: INPUT
+      protocol: tcp
+      in_interface: eth0
+      jump: ACCEPT
+      destination_ports:
+        - "22"
+        - "443"
+        - "80"
+
+  - name: Set INPUT policy to DROP
+    ansible.builtin.iptables:
+      chain: INPUT
+      policy: DROP
