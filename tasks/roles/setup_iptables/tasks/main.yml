@@ -16,6 +16,12 @@
     chain: INPUT
     policy: DROP
 
+- name: Create iptables folder in /etc
+  ansible.builtin.file:
+    path: /etc/ansible
+    state: directory
+    mode: '0755'
+
 - name: Save rules to keep them on reboot
   community.general.iptables_state:
     state: saved
