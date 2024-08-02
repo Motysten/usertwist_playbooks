@@ -15,3 +15,8 @@
   ansible.builtin.iptables:
     chain: INPUT
     policy: DROP
+
+- name: Save rules to keep them on reboot
+  ansible.builtin.iptables_state:
+    state: saved
+    path: /etc/iptables/iptables

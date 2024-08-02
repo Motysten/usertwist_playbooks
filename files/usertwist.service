@@ -15,6 +15,7 @@ ProtectKernelModules=yes
 ProtectControlGroups=yes
 PrivateDevices=yes
 RestrictSUIDSGID=true
+ProtectHome=true
 
 [Install]
 WantedBy=multi-user.target
