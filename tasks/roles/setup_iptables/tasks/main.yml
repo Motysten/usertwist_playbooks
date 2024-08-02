@@ -22,7 +22,16 @@
     state: directory
     mode: '0755'
 
-- name: Save rules to keep them on reboot
+- name: Install iptables-persistent for rules persistence
+  ansible.builtin.package:
+    name: iptables-persistent
+
+- name: Save IPv4 rules to keep them on reboot
   community.general.iptables_state:
     state: saved
-    path: /etc/iptables/iptables
+    path: /etc/iptables/rules.v4
+
+- name: Save IPv6 rules to keep them on reboot
+  community.general.iptables_state:
+    state: saved
+    path: /etc/iptables/rules.v6
