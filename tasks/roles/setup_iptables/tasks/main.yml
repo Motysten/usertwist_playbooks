@@ -17,6 +17,6 @@
     policy: DROP
 
 - name: Save rules to keep them on reboot
-  ansible.builtin.iptables_state:
+  community.general.iptables_state:
     state: saved
     path: /etc/iptables/iptables
