@@ -38,6 +38,7 @@
       name: usertwist
       group: usertwist
       system: true
+      shell: /usr/sbin/nologin
 
   - name: Put the service binary on the remote server
     ansible.builtin.copy:
