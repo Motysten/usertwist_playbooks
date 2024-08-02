@@ -25,6 +25,7 @@
 - name: Install iptables-persistent for rules persistence
   ansible.builtin.package:
     name: iptables-persistent
+    update_cache: true
 
 - name: Save IPv4 rules to keep them on reboot
   community.general.iptables_state:
