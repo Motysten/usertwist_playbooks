@@ -29,11 +29,16 @@
       src: ../templates/Caddyfile.j2
       dest: /etc/caddy/Caddyfile
 
+  - name: Create the usertwist group
+    ansible.builtin.group:
+      name: usertwist
+
   - name: Create the usertwist user
     ansible.builtin.user:
       name: usertwist
       group: usertwist
       system: true
+      shell: /usr/sbin/nologin
 
   - name: Put the service binary on the remote server
     ansible.builtin.copy:
